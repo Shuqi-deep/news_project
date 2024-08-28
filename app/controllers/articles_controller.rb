@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
@@ -59,4 +60,5 @@ class ArticlesController < ApplicationController
   def authorize_user
     redirect_to(root_path, alert: 'Not authorized') unless @article.user == current_user
   end
+
 end

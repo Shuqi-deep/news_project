@@ -1,5 +1,6 @@
 class NewsController < ApplicationController
     def main
+
         @articles = Article.all
       end
 
