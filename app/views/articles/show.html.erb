@@ -7,12 +7,15 @@
   <% end %>
   </div>
   <h1 class="font-bold text-2xl text-center"><%= @article.title %></h1>
-<div class="buttonsBlock ml-auto flex gap-2 items-center">
+
+<div class="buttonsBlock ml-auto flex gap-2">
+
   <% if user_signed_in? && @article.user == current_user %>
     <%= link_to edit_article_path(@article), class: 'hover:opacity-60 flex justify-center items-center' do %>
       <%= image_tag('/pen-square.svg', size: '20x20') %>
       Edit
     <% end %>
+
 
     <%= form_with url: article_path(@article), method: :delete, local: true, class: "h-fit" do %>
       <%= button_tag(type: 'submit', data: { confirm: 'Вы уверены?' }, class: 'hover:opacity-60 text-red-500 flex items-center') do %>
@@ -27,6 +30,12 @@
       <%#= image_tag('/delete-2.svg', size: '20x20') %>
 <!--      Destroy-->
     <%# end %>
+
+    <%= link_to @article, method: :delete, data: { confirm: 'Are you sure?' }, class: 'hover:opacity-60 text-red-500 flex justify-center items-center' do %>
+      <%= image_tag('/delete-2.svg', size: '20x20') %>
+      Destroy
+    <% end %>
+
   <% end %>
 </div>
 </div>
@@ -64,6 +73,7 @@
 
 <h3>Комментарии</h3>
 <%= render @article.comments %>
+<<<<<<< HEAD
   <% if user_signed_in? %>
     <h4>Добавить комментарий</h4>
     <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
@@ -89,6 +99,23 @@
   <% else %>
     <p>Пожалуйста, <%= link_to 'войдите', new_user_session_path %> или <%= link_to 'зарегистрируйтесь', new_user_registration_path %>, чтобы добавить комментарий.</p>
   <% end %>
+
+
+<% if user_signed_in? %>
+  <h4>Добавить комментарий</h4>
+  <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+    </div>
+    <div class="actions">
+      <%= form.submit 'Добавить комментарий' %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Пожалуйста, <%= link_to 'войдите', new_user_session_path %> или <%= link_to 'зарегистрируйтесь', new_user_registration_path %>, чтобы добавить комментарий.</p>
+<% end %>
+
 </div>
 
 <script>
@@ -112,7 +139,8 @@
             url_soc = "https://t.me/share/url?url="+window.location.href;
             break;
     }
-    
+
+
     if(url_soc){
         var width = 800, height = 500;
         var left = (window.screen.width - width) / 2;

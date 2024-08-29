@@ -57,4 +57,8 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.7"
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3b817eda4d13167b0507c73cfd5dae60a01baaf
 gem 'devise'

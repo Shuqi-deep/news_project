@@ -9,8 +9,8 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to article_path(@article), notice: 'Комментарий добавлен.'
     else
-      flash.now[:alert] = 'Ошибка при добавлении комментария.'
-      render 'articles/show' # Рендерим страницу статьи заново
+      redirect_to article_path(@article), alert: 'Ошибка при добавлении комментария.'
+
     end
   end
 
