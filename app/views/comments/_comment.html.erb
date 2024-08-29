@@ -1,0 +1,9 @@
+<p>
+  <strong><%= comment.user.email %></strong> сказал:
+  <%= comment.content %>
+  <% if comment.user == current_user %>
+    <%= form_with url: article_comment_path(comment.article, comment), method: :delete do %>
+      <%= submit_tag 'Удалить', data: { confirm: 'Вы уверены?' } %>
+    <% end %>
+  <% end %>
+</p>
