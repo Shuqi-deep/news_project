@@ -1,9 +1,4 @@
-
-
-<div class="w-full flex justify-center mt-10 min-h-5/6 flex-col items-center">
-  <div class="space-y-4 border-2 border-gray-500 px-7 py-5  w-6/12 xl:w-3/12 rounded-xl text-center shadow-2xl bg-white/0">
     <%= form_with(model: @article, local: true) do |form| %>
-      <div class="space-y-3">
         <% if @article.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
