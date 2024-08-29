@@ -20,6 +20,7 @@
   <body class="bg-gray-200/50">
     <main class="">
       <header>
+
       <% if user_signed_in? %>
         <%= form_for(:destroy_user_session, url: destroy_user_session_path, method: :delete, html: {class: 'logout-form'}) do %>
           <%= submit_tag 'Logout' %>
@@ -29,6 +30,8 @@
       <%= link_to 'Sign up', new_user_registration_path %> |
       <%= link_to 'Login', new_user_session_path %>
     <% end %>
+
+
       <h3 class="font-bold text-3xl text-center content-center py-5 bg-gray-300">News</h3>
       </header>
       <%= yield %>
