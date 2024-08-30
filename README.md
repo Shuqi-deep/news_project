@@ -1,24 +1,54 @@
-# README
+The setups steps expect following tools installed on the system.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Github
+- Ruby [3.3.4]
+- Rails [7.2.1]
 
-Things you may want to cover:
+##### 1. Check out the repository
 
-* Ruby version
+```bash
+git clone https://github.com/Shuqi-deep/news_project.git
+```
 
-* System dependencies
+##### 2. Prepare to work
 
-* Configuration
+Run the following commands to setup project.
 
-* Database creation
+```ruby
+bundle install
+rails tailwindcss:build
+```
 
-* Database initialization
 
-* How to run the test suite
+##### 3. Create and setup the database
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the following commands to create and setup the database.
 
-* Deployment instructions
+```ruby
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
-* ...
+##### 4. Run tests
+
+Run the following commands to start tests.
+
+```ruby
+rails db:schema:load
+rails db:test:prepare
+rails test
+```
+
+##### 5. Start the Rails server
+
+You can start the rails server using the commands given below.
+
+```ruby
+set PORT=3000
+set RUBY_DEBUG_OPEN=true
+set RUBY_DEBUG_LAZY=true
+foreman start -f Procfile.dev
+```
+
+And now you can visit the site with the URL http://localhost:5000
