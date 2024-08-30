@@ -1,0 +1,50 @@
+<div class="space-y-10 mb-5">
+    <div class="w-full flex justify-center mt-5">
+        <div class="space-y-4 border-2 border-gray-500 px-7 py-5  w-6/12 xl:w-3/12 rounded-xl text-center shadow-2xl">
+        <h2 class="font-bold text-2xl ">Edit <%= resource_name.to_s.humanize %></h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+    
+      <div class="field space-y-1 ">
+        <%= f.label :email, :class=>"text-lg " %><br />
+        <%= f.email_field :email, disabled: true, autofocus: true, :placeholder=>"Input your email", :class=>"rounded-lg ", autocomplete: "email" %>
+      </div>
+    
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+    
+      <div class="field space-y-1 ">
+        <%= f.label :password, :class=>"text-lg " %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, :placeholder=>"Input new password", :class=>"rounded-lg ", autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+    
+      <div class="field space-y-1 ">
+        <%= f.label :password_confirmation, :class=>"text-lg " %><br />
+        <%= f.password_field :password_confirmation, :placeholder=>"Input new password", :class=>"rounded-lg ", autocomplete: "new-password" %>
+      </div>
+    
+      <div class="field space-y-1 ">
+        <%= f.label :current_password, :class=>"text-lg " %> <i>(to confirm your changes)</i><br />
+        <%= f.password_field :current_password, :placeholder=>"Input current password", :class=>"rounded-lg ", autocomplete: "current-password" %>
+      </div>
+    
+      <div class="actions mt-5">
+        <%= f.submit "Update",  :class=>"p-2 bg-gray-300 cursor-pointer w-5/6 rounded-full mt-4 mb-4 translate hover:bg-gray-300/60" %>
+      </div>
+    <% end %>
+    
+    </div>
+    </div>
+    <div class="w-full flex justify-center mt-5">
+        <div class="space-y-4 border-2 border-gray-500 px-7 py-5  w-6/12 xl:w-3/12 rounded-xl text-center shadow-2xl">
+    <h3 class="font-bold text-2xl ">Delete my account</h3>
+    <div class="">Unhappy? <%= button_to "Delete my account", registration_path(resource_name), :class=>"my-2 font-bold text-lg text-red-500 hover:opacity-60 transition-opacity", data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+    <%= link_to "Back", :back, :class=>"font-bold text-lg hover:opacity-60 transition-opacity" %>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="flex flex-col justify-center px-10 text-center gap-2">
+<div class="grid grid-cols-[1fr_2fr_1fr]">
+  <div class="w-fit">
+  <%= link_to articles_path, class: 'hover:opacity-60 flex' do %>
+    <%= image_tag('/back.svg', size: '20x20') %>
+    Back
+  <% end %>
+  </div>
+  <h1 class="font-bold text-2xl text-center"><%= @article.title %></h1>
+<div class="buttonsBlock ml-auto flex gap-2 items-center">
+  <% if user_signed_in? && @article.user == current_user %>
+    <%= link_to edit_article_path(@article), class: 'hover:opacity-60 flex justify-center items-center' do %>
+      <%= image_tag('/pen-square.svg', size: '20x20') %>
+      Edit
+    <% end %>
+
+    <%= form_with url: article_path(@article), method: :delete, local: true, class: "h-fit" do %>
+      <%= button_tag(type: 'submit', data: { confirm: 'Вы уверены?' }, class: 'hover:opacity-60 text-red-500 flex items-center') do %>
+        <%= image_tag('/delete-2.svg', size: '20x20', class: 'mr-2') %>
+        Destroy
+      <% end %>
+    <% end %>
+
+
+
+    <%#= link_to @article, method: :delete, data: { confirm: 'Are you sure?' }, class: 'hover:opacity-60 text-red-500 flex justify-center items-center' do %>
+      <%#= image_tag('/delete-2.svg', size: '20x20') %>
+<!--      Destroy-->
+    <%# end %>
+  <% end %>
+</div>
+</div>
+<div class="flex flex-col gap-10 px-32">
+  <p class="text-center text-sm">Published at: <%= @article.created_at.strftime("%m.%d.%Y") %></p>
+
+    <% if @article.photo.attached? %>
+        <%= image_tag @article.photo, class: 'min-w-96 mx-auto rounded-lg' %>
+    <% end %>
+    <p class=""><%= @article.body %></p>
+    <span class="text-start ">Author: <%= @article.user.email %></span>
+    <div class="flex gap-2">
+      <button onclick="share(event)" class="hover:opacity-60 transition-opacity" title="vk" data-social='vk'>
+        <%= image_tag('/vk-v2.svg', size: '40x40') %>
+      </button>
+      <button onclick="share(event)" class="hover:opacity-60 transition-opacity" title="whats`app" data-social='wa'>
+        <%= image_tag('/whatsapp-color.svg', size: '40x40') %>
+      </button>
+      <button onclick="share(event)" class="hover:opacity-60 transition-opacity" title="ok" data-social='ok'>
+        <%= image_tag('/odnoklassniki.svg', size: '40x40') %>
+      </button>
+      <button onclick="share(event)" class="hover:opacity-60 transition-opacity" title="telegram" data-social='tg'>
+        <%= image_tag('/telegram.svg', size: '40x40') %>
+      </button>
+      <div>
+        <button onclick="copyToClipboard()" class="hover:opacity-60 transition-opacity" title="copy">
+          <%= image_tag('/copy.svg', size: '40x40') %>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="mx-24  mb-10 space-y-4" >
+    <h3>Сообщений: <%= @article.comments.length %></h3>
+    <%= render @article.comments %>
+    <% if user_signed_in? %>
+      <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+        <% if @comment && @comment.errors.any? %>
+          <div class="error_messages">
+            <h2><%= pluralize(@comment.errors.count, "ошибка") %> запрещают сохранение комментария:</h2>
+            <ul>
+              <% @comment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="field flex items-center border border-gray-500 rounded-md bg-white">
+          <%= form.text_area :content, placeholder: "Enter your comment...", class: "flex-1 min-h-20 border-none rounded-l-md bg-transparent resize-y", required: true %>
+          <%= form.submit "Create comment", :type => :image, :src => "/back.svg", :class => 'cursor-pointer rounded-r-md w-7 h-20 hover:bg-green-600/60 transition-colors p-1 bg-green-600 rotate-180' %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>Пожалуйста, <%= link_to 'войдите', new_user_session_path, class: 'hover:underline hover:text-blue-400 transition-all' %> или <%= link_to 'зарегистрируйтесь', new_user_registration_path, class: 'hover:underline hover:text-blue-400 transition-all' %>, чтобы добавить комментарий.</p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function copyToClipboard() {
+    navigator.clipboard.writeText(window.location.href)
+    alert("Ссылка скопирована")
+  }
+  function share(e){
+    var url_soc = false;
+    switch (e.currentTarget.dataset.social) {
+        case "vk":
+            url_soc = "https://vk.com/share.php?url="+window.location.href;
+            break;
+        case "ok":
+            url_soc = "https://connect.ok.ru/offer?url="+window.location.href;
+            break;
+        case "wa":
+            url_soc = "https://api.whatsapp.com/send/?text="+window.location.href;
+            break;
+        case "tg":
+            url_soc = "https://t.me/share/url?url="+window.location.href;
+            break;
+    }
+    
+    if(url_soc){
+        var width = 800, height = 500;
+        var left = (window.screen.width - width) / 2;
+        var top = (window.screen.height - height) / 2;
+        const social_window = window.open(url_soc, "share_window", "height=" + height + ",width=" + width + ",top=" + top + ",left=" + left);
+        social_window.focus();
+    }
+  }
+</script>

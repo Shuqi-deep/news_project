@@ -1,0 +1,20 @@
+<div class="flex flex-col justify-center px-10">
+  <h1 class="font-bold text-2xl text-center">Articles</h1>
+  
+  <%= link_to 'New Article', new_article_path, class: "ml-auto p-2 bg-black/0 border border-black shadow-[0_0_10px_4px] shadow-black/10 hover:shadow-[5px_6px_20px_4px] hover:shadow-black/30 hover:bg-gray-400/60 transition-all rounded-2xl"  %>
+</div>
+<div class="px-10  py-10 grid rows-2 grid-cols-3 gap-10">
+  <% @articles.each do |article| %>
+      <%= link_to article, class: "bg-white hover:opacity-60 transition-all hover:shadow-[0_0_20px_8px] w-fit rounded-xl flex flex-col gap-2  shadow-black/10 shadow-[0_0_10px_4px] pb-5 cursor-pointer " do%>
+          <% if article.photo.attached? %>
+            <%= image_tag(article.photo, class: 'rounded-t-xl aspect-[4/3] min-h-[80%]') %>
+          <% else %>
+            <%= image_tag('/erus.jpg', class: 'rounded-t-xl aspect-[4/3] min-h-[80%]') %>
+          <% end %>
+
+        <p class="text-xl px-5 font-bold truncate "><%= article.title %></p>
+        <p class="text-gray-400 px-5"><%= article.created_at.strftime("%d %B") %></p>
+    <% end %>
+  <% end %>
+
+</div>

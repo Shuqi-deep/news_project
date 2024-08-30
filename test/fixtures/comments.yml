@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: "This is a valid comment."
+  user: one
+  article: one
+  created_at: <%= Time.now %>
+
+two:
+  content: ""
+  user: one
+  article: one
+  created_at: <%= Time.now %>
+
