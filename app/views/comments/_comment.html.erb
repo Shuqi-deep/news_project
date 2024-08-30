@@ -7,7 +7,7 @@
   </div>
   <div class="seporator h-px w-full border border-gray-400"></div>
   <div class="body text-start">
-    
+
     <%= comment.content %>
   </div>
   <% if comment.user == current_user %>
@@ -15,5 +15,5 @@
       <%= submit_tag 'Удалить', data: { confirm: 'Вы уверены?' } %>
     <% end %>
   <% end %>
-  
+
 </div>
